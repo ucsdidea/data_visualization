@@ -8,6 +8,7 @@
 %--------------------------------------
 % generate data for the plot
 %--------------------------------------
+clear;
 t = 0.0:0.01:8 * pi;
 x1 = sin(0.1 * t);
 x2 = sin(0.2 * t);
@@ -80,6 +81,7 @@ print(h, 'matlab_line_better', '-dpdf', '-r0');
 %--------------------------------------
 % generate data for the plot
 %--------------------------------------
+clear;
 n = 100;
 x = linspace(0, 10, 100);
 y1 = x + 0.5 * randn(1, n);
@@ -128,3 +130,47 @@ set(h,'Units','Inches');
 pos = get(h,'Position');
 set(h, 'PaperPositionMode', 'Auto', 'PaperUnits', 'Inches', 'PaperSize', [pos(3), pos(4)])
 print(h, 'matlab_scatter_better', '-dpdf', '-r0');
+
+
+%% 3) Colormap plot
+
+%--------------------------------------
+% generate data for the plot
+%--------------------------------------
+clear;
+[X,Y,Z] = peaks;
+
+
+%--------------------------------------
+% Basic plot
+%--------------------------------------
+h = figure;
+set(h, 'Visible', 'off');
+hold on;
+
+contourf(X, Y, Z)
+colormap(jet)
+colorbar()
+
+% save figure as PDF (with whitespace removed)
+set(h,'Units','Inches');
+pos = get(h,'Position');
+set(h, 'PaperPositionMode', 'Auto', 'PaperUnits', 'Inches', 'PaperSize', [pos(3), pos(4)])
+print(h, 'matlab_colormap_bad', '-dpdf', '-r0');
+
+%--------------------------------------
+% Better plot
+%--------------------------------------
+h = figure;
+set(h, 'Visible', 'off');
+hold on;
+
+contourf(X, Y, Z, 20, 'LineWidth', 0.5)
+colormap(parula)
+colorbar()
+
+% save figure as PDF (with whitespace removed)
+set(h,'Units','Inches');
+pos = get(h,'Position');
+set(h, 'PaperPositionMode', 'Auto', 'PaperUnits', 'Inches', 'PaperSize', [pos(3), pos(4)])
+print(h, 'matlab_colormap_better', '-dpdf', '-r0');
